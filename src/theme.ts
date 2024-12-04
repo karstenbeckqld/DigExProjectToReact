@@ -6,6 +6,21 @@ const config: ThemeConfig = {
 };
 
 const theme = extendTheme({
+    components: {
+        Button: {
+            variants: {
+                themedButton: {
+                    bg: '#a4e443', // Background color
+                    color: 'black',
+                    width: '100%',
+                    _hover: {
+                        bg: '#7fb035', // Hover background color
+                        color: 'white'
+                    },
+                },
+            },
+        },
+    },
     config,
     colors: {
         gray: {
