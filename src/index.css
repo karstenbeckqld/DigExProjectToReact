@@ -1,0 +1,9 @@
+form {
+    width: 100%;
+}
+
+.loginView {
+    background: #777777 url("./assets/images/signin-bg.jpg") no-repeat;
+    height: 100vh;
+    background-size: cover;
+}

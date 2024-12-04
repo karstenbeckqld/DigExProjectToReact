@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 154.2 81.26">
+  <g id="Layer_1-2">
+    <g id="nav_marker">
+      <path d="m154.2,60.94H20.31c-11.17,0-20.31-9.14-20.31-20.31h0c0-11.17,9.14-20.31,20.31-20.31h133.89s0,40.63,0,40.63Z" fill="#f2f2f2" stroke-width="0"/>
+      <path d="m133.89,20.31h20.31V0c0,11.17-9.14,20.31-20.31,20.31Z" fill="#f2f2f2" stroke-width="0"/>
+      <path d="m133.89,60.94h20.31v20.31c0-11.17-9.14-20.31-20.31-20.31Z" fill="#f2f2f2" stroke-width="0"/>
+    </g>
+  </g>
+</svg>
