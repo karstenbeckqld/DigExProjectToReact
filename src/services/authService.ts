@@ -1,5 +1,3 @@
-import axios from "axios";
+import createHttpServiceInstance from "./http-service.ts";
 
-export const axiosInstance = axios.create({
-    baseURL: 'http://localhost:3456/auth'
-})
+export default createHttpServiceInstance('/auth');

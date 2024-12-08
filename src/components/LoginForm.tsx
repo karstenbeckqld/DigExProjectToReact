@@ -6,17 +6,21 @@ import {
     FormLabel,
     Heading,
     Image,
-    Input, Link,
+    Input,
+    Link,
     Text,
-    useColorMode,
+    useColorMode, useToast,
     VStack
 } from "@chakra-ui/react";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import AuthClient from "../services/authClient.ts";
 import logo from '../assets/images/logo-white.svg';
 import { VscTriangleRight } from "react-icons/vsc";
+import { LoginResponse } from "../types/types.ts";
+import { useNavigate } from "react-router-dom";
+import apiClient from "../services/api-client.ts";
+import { useUser } from '../hooks/useUser.tsx';
 
 const schema = z.object({
     email: z.string()
@@ -28,13 +32,32 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const LoginForm = () => {
+    const navigate = useNavigate();
     const {colorMode} = useColorMode();
-    const {register, handleSubmit, formState: {errors}} = useForm<FormData>({resolver: zodResolver(schema)});
-    const apiClient = new AuthClient('/signin');
+    const {register, handleSubmit, formState: {errors}} = useForm<FormData>({
+        resolver: zodResolver(schema)
+    });
+    const toast = useToast();
+    const { setUser } = useUser();
 
     const onSubmit = (data: FieldValues) => {
-        const res = apiClient.post(data);
-        console.log(res);
+        apiClient.post<LoginResponse>('/auth/signin', data)
+            .then((res) => {
+                console.log(res);
+                localStorage.setItem('accessToken', res.data.accessToken);
+                setUser(res.data.user);
+                navigate('/');
+            })
+            .catch((err) => {
+                console.log(err.message);
+                toast({
+                    title: 'We couldn\'t sign you in',
+                    description: err.message,
+                    status: 'error',
+                    position: 'top',
+                    duration: 3000
+                })
+            });
     };
 
     return (
@@ -57,45 +80,33 @@ const LoginForm = () => {
             >
                 <Box width='50%' padding='1em'>
                     <Heading color='#a4e443'>Welcome<br /> to Spirit Artisans</Heading>
-                    <Text>This website is only accessible to registered users. Please log in or register an account to get
-                          access to the world of cocktails. Here we can provide you with recipes, tips and tricks of the
-                          trade.</Text>
+                    <p>This website is only accessible to registered users. Please log in or register an account to get
+                       access to the world of cocktails. Here we can provide you with recipes, tips and tricks of the
+                       trade.</p>
                 </Box>
                 <Box width='50%'>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <VStack spacing={4}>
-                            <Box marginTop='80px'>
-                            <Image src={logo} width='300px' alt='Spirit Artisans Logo' />
-                            </Box>
-                            <Box w='100%'>
-                                <FormControl marginBottom={5}>
-                                    <FormLabel htmlFor='email'>Email</FormLabel>
-                                    <Input{...register('email')}
-                                        type='email'
-                                        id="email"
-                                    />
-                                    {errors.email && <Text color='red.400'>{errors.email.message}</Text>}
-                                </FormControl>
-                            </Box>
-                            <Box w='100%'>
-                                <FormControl>
-                                    <FormLabel htmlFor='password'>Password</FormLabel>
-                                    <Input{...register('password')}
-                                        type='password'
-                                        id='password'
-                                    />
-                                    {errors.password && <Text color='red.400'>{errors.password.message}</Text>}
-                                </FormControl>
-                            </Box>
-                            <Button
-                                variant='themedButton'
-                                type='submit'>
-                                Login
-                            </Button>
-                            <Text display="inline" verticalAlign="middle">
-                                No account? <VscTriangleRight style={{ display: 'inline', verticalAlign: 'middle' }} />{' '}
-                                <Link href='#'>register</Link></Text>
-                        </VStack>
+                        <VStack spacing={4}> <Box marginTop='80px'>
+                            <Image src={logo} width='300px' alt='Spirit Artisans Logo' /> </Box> <Box w='100%'>
+                            <FormControl marginBottom={5}> <FormLabel htmlFor='email'>Email</FormLabel>
+                                <Input{...register('email')}
+                                    type='email'
+                                    id="email"
+                                /> {errors.email && <Text color='red.400'>{errors.email.message}</Text>}
+                            </FormControl> </Box> <Box w='100%'> <FormControl>
+                            <FormLabel htmlFor='password'>Password</FormLabel> <Input{...register('password')}
+                            type='password'
+                            id='password'
+                        /> {errors.password && <Text color='red.400'>{errors.password.message}</Text>}
+                        </FormControl> </Box> <Button
+                            variant='themedButton'
+                            type='submit'
+                        > Login </Button> <Text display="inline" verticalAlign="middle"> No account? <VscTriangleRight
+                            style={{
+                                display: 'inline',
+                                verticalAlign: 'middle'
+                            }}
+                        />{' '} <Link href='#'>register</Link></Text> </VStack>
                     </form>
                 </Box>
             </Flex>
