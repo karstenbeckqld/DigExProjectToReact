@@ -1,4 +1,5 @@
 import apiClient from "./api-client.ts";
+import { AxiosRequestConfig } from "axios";
 
 interface Entity {
     id: number;
@@ -12,18 +13,20 @@ class HttpService {
         this.endpoint = endpoint;
     }
 
-    getAll<T>() {
+    getAll<T>(requestConfig?: AxiosRequestConfig) {
         const controller = new AbortController();
-        const response = apiClient.get<T[]>(this.endpoint, {
+        const response = apiClient.get<T>(this.endpoint, {
             signal: controller.signal,
+            ...requestConfig
         });
         return {response, cancel: () => controller.abort()};
     }
 
-    get<T>() {
+    get<T>(requestConfig?: AxiosRequestConfig) {
         const controller = new AbortController();
         const response = apiClient.get<T>(this.endpoint, {
             signal: controller.signal,
+            ...requestConfig
         });
         return {response, cancel: () => controller.abort()};
     }
@@ -41,6 +44,6 @@ class HttpService {
     }
 }
 
-const createHttpServiceInstance = (endpoint: string) => new HttpService(endpoint);
+const createHttpService = (endpoint: string) => new HttpService(endpoint);
 
-export default createHttpServiceInstance;
+export default createHttpService;

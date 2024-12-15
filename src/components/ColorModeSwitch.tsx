@@ -10,7 +10,7 @@ const ColorModeSwitch = () => {
     return (
         <HStack alignContent='center' justifyContent='space-between'>
             <Switch colorScheme='blackAlpha' isChecked={colorMode === 'dark'} onChange={toggleColorMode} />
-            <Text color={colorMode === 'dark' ? 'white' : 'black'} >
+            <Text whiteSpace='nowrap' color={colorMode === 'dark' ? '#121212' : 'black'} >
                 {colorMode === 'dark' ? 'Dark Mode' : 'Light Mode'}
             </Text>
         </HStack>

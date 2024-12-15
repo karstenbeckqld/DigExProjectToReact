@@ -1,0 +1,28 @@
+.cocktail-card {
+    text-align       : center;
+    background-color : #252626;
+    padding          : 1em;
+    border-radius    : 15px;
+    cursor           : pointer;
+}
+
+.cocktail-card:hover {
+    background-color : #3b3c3d;
+}
+
+.cocktail-overview-header-content {
+    display         : flex;
+    align-items     : center;
+    justify-content : space-evenly;
+}
+
+h2 {
+    color       : white;
+    font-weight : bold;
+    font-size   : 1.5em;
+}
+
+.cocktailOverviewImage {
+    width  : 50%;
+    margin : 0 auto;
+}

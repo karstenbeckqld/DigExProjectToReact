@@ -31,3 +31,9 @@ export interface UserContextType {
     user: User | null;
     setUser: React.Dispatch<SetStateAction<User | null>>;
 }
+
+
+
+export interface FetchCocktailResponse<T> {
+    results: T[];
+}

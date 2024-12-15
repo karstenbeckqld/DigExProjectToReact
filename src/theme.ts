@@ -14,7 +14,7 @@ const theme = extendTheme({
                     color: 'black',
                     width: '100%',
                     _hover: {
-                        bg: '#7fb035', // Hover background color
+                        bg: '#35b0a2', // Hover background color
                         color: 'white'
                     },
                 },
