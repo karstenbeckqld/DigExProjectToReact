@@ -11,14 +11,21 @@ export interface User  {
     newUser: boolean;
 }
 
+export interface Cocktail {
+    _id: string;
+    cocktailName: string;
+    spiritName: string;
+    preparation: string;
+    ingredients: string[];
+    story: string;
+    cocktailImage: string;
+    tips: string;
+    cocktailHeaderImage: string;
+}
+
 export interface Login {
     email: string;
     password: string;
-}
-
-export interface LoginResponse {
-    accessToken: string;
-    user: User;
 }
 
 export interface Toast {

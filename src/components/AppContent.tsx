@@ -16,7 +16,7 @@ import AdminEditProfileView from "../pages/AdminEditProfileView.tsx";
 import AboutView from "../pages/AboutView.tsx";
 import FourOFourView from "../pages/FourOFourView.tsx";
 import { useEffect } from "react";
-import { LoginResponse } from "../types/types.ts";
+import { LoginResponse } from "../services/validationService.ts";
 import { useUser } from "../hooks/useUser.tsx";
 
 function AppContent() {
@@ -25,7 +25,6 @@ function AppContent() {
     const { setUser } = useUser();
 
     useEffect(() => {
-
         if (!localStorage.accessToken)
             navigate('/signin');
 

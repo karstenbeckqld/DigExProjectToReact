@@ -1,17 +1,5 @@
-import ApiClient from "./apiClient.ts";
+import createHttpService from "./http-service.ts";
 
-export interface Cocktail {
-    _id: string;
-    cocktailName: string;
-    spiritName: string;
-    preparation: string;
-    ingredients: string[];
-    story: string;
-    cocktailImage: string;
-    tips: string;
-    cocktailHeaderImage: string;
-}
-
-export const createCocktailApiClient = (route: string) => {
-    return new ApiClient<Cocktail>(route);
+export const createCocktailService = (route: string) => {
+    return createHttpService(route);
 }

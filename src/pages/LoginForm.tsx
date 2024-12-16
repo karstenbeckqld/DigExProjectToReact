@@ -16,7 +16,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import logo from '../assets/images/logo.svg';
 import { VscTriangleRight } from "react-icons/vsc";
-import { LoginResponse } from "../types/types.ts";
+import { LoginResponse } from "../services/validationService.ts";
 import { useNavigate } from "react-router-dom";
 import apiClient from "../services/api-client.ts";
 import { useUser } from '../hooks/useUser.tsx';
